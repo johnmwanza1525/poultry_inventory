@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<h1>All our poultry</h1>
+<p>
+    We are proud to offer a selection of lovingly reared young layer hens, broilers and ducks.
+    Browse through our large variety of birds and find what suits you.
+    Need more information on a particular breed or poultry keeping in general? Try our <a href="{% url 'forum' %}">forum</a> for helpful articles 
+    or simply <a href="{% url 'about' %}#contact-info">contact us</a>. We are happy to help!
+</p>
+<div class="container-fluid">
+    <div class="row d-flex justify-content-evenly card-container">
+        {% for category in categories %}
+            <div class="category-card">
+                <a href="{% url 'products' %}?category={{ category.name }}" class="category-link">
+                    <img class="category-img" src="{{ category.image.url }}" alt="{{ category.name }}">
+                    <h2 class="category-link-title">{{ category.name }}</h2>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

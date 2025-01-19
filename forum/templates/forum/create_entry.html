@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <h1>Forum</h1>
+    <h2 class="mb-3 mt-5 pb-2 border-bottom">Create a Forum Post</h2>
+
+    <div class="row">
+        <div class="col-12 col-md-8">
+            <form method="POST" action="{% url 'create_entry' %}" class="form mb-2" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form | crispy }}
+                <div class="mt-5">
+                    <a class="btn btn-white-bg" href="{% url 'home' %}">
+                        <iconify-icon inline icon="material-symbols:cancel" width="16"></iconify-icon>
+                        Cancel
+                    </a>
+                    <button class="btn btn-colour-bg" type="submit">
+                        <iconify-icon inline icon="material-symbols:add-circle-rounded" width="16"></iconify-icon>
+                        Post new entry
+                    </button>
+                </div>
+            </form>
+        </div>            
+    </div>
+{% endblock %}

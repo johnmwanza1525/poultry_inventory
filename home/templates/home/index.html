@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <img src="https://chirpy-chooks.s3.eu-west-1.amazonaws.com/media/freerange-hens.jpg" alt="free range chickens" class="hero-img">
+    <main>
+        <div class="container mb-5 d-flex flex-column">
+            <h1>Kenya's Live Poultry supply</h1>
+            <p>Find top quality laying hens, ducks or broilers here at Chripy Chooks.<br>
+            Choose from our colourful range of layers or raise your own meat birds. 
+            Food tastes better when you know where it comes from and raising chickens is a rewarding 
+            activity for people of all ages.<br>
+            Need advice on poultry keeping before or after getting your feathery friends?
+            Head over to our forum to ask or answer questions, share a review or a funny chicken story.
+            </p>
+            <a href="{% url 'categories' %}" class="btn btn-colour-bg fs-3 mt-4 align-self-start">Buy Live Poultry</a>
+        </div>
+    </main>
+{% endblock %}

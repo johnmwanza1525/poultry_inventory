@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <h1>Forum</h1>
+    <h2>Welcome to the <span class="logo-font">Chirpy Chooks</span> forum.</h2>
+    <p class="my-4">
+        As a supplier of live poultry we want to make sure that both our birds and their 
+        owners are happy. For that reason you will find lots of interesting articles posted by our 
+        knowledgable breeders about general advice on poultry keeping, 
+        interesting facts about different breeds or the latest recommendations on feeds, bedding, 
+        pest control, etc.
+    </p>
+    {% if filtered %}
+        <a class="type-label btn btn-colour-bg" href="{% url 'forum' %}">Clear filter</a>
+    {% endif %}
+    {% for entry in entries %}
+        <div class="forum-entry-card">
+            <a class="type-label btn btn-colour-bg" href="{% url 'forum' %}?entry_type={{ entry.entry_type }}">{{ entry.entry_type.get_friendly_name }}</a>
+            <a href="{% url 'entry_detail' entry.slug %}" class="forum-entry-link">
+                <h3 class="entry-heading"><strong>{{ entry.title }}</strong></h3>   
+                <hr>
+                <div class="row">
+                    <div class="col-12 col-sm-8">
+                        {% if entry.excerpt %}
+                            <p class="excerpt">{{ entry.excerpt }}</p>
+                        {% endif %} 
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        {% if entry.image %}
+                            <img class="entry-image" src="{{ entry.image.url }}" alt="{{ entry.get_img_alt_value }}">
+                        {% else %}
+                            <img class="entry-image w-50" src="{{ MEDIA_URL }}noimage.png" alt="cartoon chicken">
+                        {% endif %}
+                    </div>
+                </div>
+                <p class="entry-date text-muted">{{ entry.create_date }}</p>
+            </a>
+        </div>
+    {% endfor %}
+{% endblock %}

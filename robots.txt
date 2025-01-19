@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /accounts/
+Disallow: /basket/
+Disallow: /checkout/
+Disallow: /profiles/
+Sitemap: https://chirpy-chooks.herokuapp.com/sitemap.xml

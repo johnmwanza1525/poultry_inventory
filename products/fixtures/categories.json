@@ -1,0 +1,25 @@
+[{
+    "pk": 1,
+    "model": "products.category",
+    "fields": {
+      "name": "Layers",
+      "image": "laying-hen.jpg"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "products.category",
+    "fields": {
+      "name": "Broilers",
+      "image": "broiler.jpg"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "products.category",
+    "fields": {
+      "name": "Ducks",
+      "image": "laying-duck.jpg"
+    }
+  }
+]

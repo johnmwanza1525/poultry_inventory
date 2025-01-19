@@ -1,0 +1,91 @@
+#payment-form {
+    width: 60%;
+}
+
+#payment-form label {
+    /* bootstrap text-muted class color */
+    color: #6c757d;
+}
+
+.asteriskField {
+    color: red;
+    padding-left: .5em;
+}
+
+.order-summery {
+    float: right;
+    width: 35%;
+    margin-left: 3em;
+}
+
+
+/* Stripe elements styling */
+
+/* matching bootstrap "form-control" class styling */
+.StripeElement {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0.25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.StripeElement--webkit-autofill {
+    background-color: #fefde5 !important;
+}
+
+
+/* Loading spinner styling */
+
+#loading-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--primary-color);
+    opacity: .4;
+    z-index: 9999;
+}
+
+.loading-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+
+/* Checkout success page styling */
+
+.order-confirmation-container {
+    border: 2px solid var(--primary-color-dark);
+    border-radius: 4px;
+}
+
+
+/* Layout on small to medium screens */
+
+@media (max-width: 990px) {
+
+    #payment-form {
+        width: 100%;
+    }
+
+    .order-summery {
+        float: none;
+        width: 100%;
+        margin: 0;
+    }
+}

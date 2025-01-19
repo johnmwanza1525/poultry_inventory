@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <main>
+        <div class="container mb-5 d-flex flex-column">
+            <h1>Your chooks are lost!</h1>
+            <img src="https://chirpy-chooks.s3.eu-west-1.amazonaws.com/media/chicken-question.jpg" alt="cartoon chicken with question mark" class="error-img">
+            <p class="fs-3 my-4">Looks like your flock has been pecking at the wrong URL...</p>
+             <a href="{% url 'home' %}" class="btn btn-white-bg error-btn">
+                    <span class="icon">
+                        <iconify-icon inline icon="ion:chevron-back-circle" width="16"></iconify-icon>
+                    </span>
+                    Back to the coop
+                </a>
+        </div>
+    </main>
+{% endblock %}

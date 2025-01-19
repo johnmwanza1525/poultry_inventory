@@ -1,0 +1,1 @@
+web: gunicorn chirpy_chooks.wsgi:application

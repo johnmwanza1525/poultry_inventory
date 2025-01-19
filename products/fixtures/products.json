@@ -1,0 +1,127 @@
+[{
+    "pk": 1,
+    "model": "products.product",
+    "fields": {
+      "breed": "Blackrock",
+      "description": "Very good natured, attractive bird. Great for beginners.",
+      "plumage": "Black body with metallic colour sheen. Often copper neck.",
+      "is_broiler": false,
+      "eggs_per_year": 310,
+      "price": 16.0,
+      "category": 1,
+      "image": "blackrock.jpg"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "products.product",
+    "fields": {
+      "breed": "Bluebell",
+      "description": "Gentle and placid. Large hybrid breed.",
+      "plumage": "Light blue-grey body. Black head and neck.",
+      "is_broiler": false,
+      "eggs_per_year": 280,
+      "price": 16.0,
+      "category": 1,
+      "image": "bluebell.jpg"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "products.product",
+    "fields": {
+      "breed": "Copper Black Maran",
+      "description": "Placid natured bird with feathered feet.",
+      "plumage": "Black with copper hue around lower body.",
+      "is_broiler": false,
+      "eggs_per_year": 310,
+      "price": 18.0,
+      "category": 1,
+      "image": "copper-black-maran.jpg"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "products.product",
+    "fields": {
+      "breed": "Light Sussex",
+      "description": "Dual Purpose Bird. Very friendly, ideal for beginners and kids.",
+      "plumage": "White body. Black tail and mottled black neck.",
+      "is_broiler": false,
+      "eggs_per_year": 290,
+      "price": 16.0,
+      "category": 1,
+      "image": "light-sussex.jpg"
+    }
+  },
+  {
+    "pk": 5,
+    "model": "products.product",
+    "fields": {
+      "breed": "Rhode Island Red",
+      "description": "Very popular breed. 2 year laying period. Gentle and Placid.",
+      "plumage": "Classic red-brown plumage with variations of white tail feathers.",
+      "is_broiler": false,
+      "eggs_per_year": 340,
+      "price": 14.0,
+      "category": 1,
+      "image": "rhode-island-red.jpg"
+    }
+  },
+  {
+    "pk": 6,
+    "model": "products.product",
+    "fields": {
+      "breed": "White Leghorn",
+      "description": "Produces large eggs. Placid but shy bird, known for characteristic large comb.",
+      "plumage": "White all over with fan shaped tail.",
+      "is_broiler": false,
+      "eggs_per_year": 320,
+      "price": 16.0,
+      "category": 1,
+      "image": "white-leghorn.jpg"
+    }
+  },
+  {
+    "pk": 7,
+    "model": "products.product",
+    "fields": {
+      "breed": "Cornish Cross",
+      "description": "Fast growth and meat production. Not suited for reproduction.",
+      "plumage": "White all over.",
+      "is_broiler": true,
+      "eggs_per_year": null,
+      "price": 4.0,
+      "category": 2,
+      "image": "cornish-cross.jpg"
+    }
+  },
+  {
+    "pk": 8,
+    "model": "products.product",
+    "fields": {
+      "breed": "Ancona Duck",
+      "description": "Dual purpose breed. Multi-range of egg colours. Require good amount of space.",
+      "plumage": "Attractive bird with varying mottled plumage, from white-bay to white-black.",
+      "is_broiler": false,
+      "eggs_per_year": 240,
+      "price": 22.0,
+      "category": 3,
+      "image": "ancona-duck.jpg"
+    }
+  },
+  {
+    "pk": 9,
+    "model": "products.product",
+    "fields": {
+      "breed": "Khaki Campbell",
+      "description": "Favourite layer duck, valued for high production. Extremely hardy.",
+      "plumage": "Simple to tan to buff colour.",
+      "is_broiler": false,
+      "eggs_per_year": 340,
+      "price": 22.0,
+      "category": 3,
+      "image": "khaki-campbell.jpg"
+    }
+  }
+]

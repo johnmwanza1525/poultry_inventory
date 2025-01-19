@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <a href="{% url 'categories' %}">Back to All Products</a>
+    <h1>{{ current_category }}</h1>
+    {% if current_category == "Layers"%}
+        <p class="mt-4">Keeping your own chickens for eggs is both a fun and rewarding hobby. Even children of a young age can be included in this responsibilty and 
+        knowing what is in the eggs you eat and where they come from enables you to reclaim some of your food sovereignty</p>
+        <p>All our laying hen breeds come as <strong>point of lay pullets</strong>, which is approx. 18 weeks old (breed dependent). 
+        At this point, your chickens start laying an egg per day (egg production decreases during winter months. 
+        Check out our <a href="{% url 'forum' %}">forum</a> for hacks on keeping up production during the short days).</p>
+    {% elif current_category == "Broilers" %}
+        <p class="mt-4">Raise your own meat birds and know exactly what your family is eating! Chickens raised without the excessive use 
+        of pharmaceuticals and in your own backyard won't have you second guessing what's in your meat. 
+        And being in charge of the welfare of your own animals ensures that your chickens' short lives will be happy.</p>
+        <p>All our broiler chickens come as <strong>off heat broilers.</strong>This means theyb require no external heat source and can be kept free range 
+        or in outside runs.</p>
+    {% elif current_category == "Ducks" %}
+        <p class="mt-4">Ducks make a wonderful addtion to any small holding or homestead. Unlike chickens, ducks don't scratch and their 
+        appetite for slugs makes them a great companion to any vegetable patch. While not necessarily requiring a swimming spot (pond, lake, etc.) to be happy, 
+        ducks do need a water source to wash their eyes as they don't have eyelids (for more information on ducks check out our 
+        <a href="{% url 'forum' %}">forum</a>).</p>
+        <p>Duck eggs are particular sought after in baking and duck meat can make for rather novel meal.</p>
+        <p>All our ducks come at <strong>point of lay</strong> and are or will be producing eggs shortly after purchase.</p>
+    {% endif %}
+    <div class="container-fluid">
+        <div class="row d-flex justify-content-evenly card-container">
+            {% for product in products%}
+                <div class="product-card mb-5">
+                    <a href="{% url 'product_detail' product.id %}" class="product-link mb-1">
+                        {% if product.image %}
+                            <img class="product-img" src="{{ product.image.url }}" alt="{{ product.breed }}">
+                        {% else %}
+                            <img class="product-img" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.breed }}">
+                        {% endif %}
+                        <h2 class="product-link-title">{{ product.breed }}</h2>
+                    </a>
+                </div>
+            {% endfor %}
+       </div>
+    </div>
+{% endblock %}

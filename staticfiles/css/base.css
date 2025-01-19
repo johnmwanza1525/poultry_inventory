@@ -1,0 +1,482 @@
+/* Google Fonts: font-family: 'Pacifico', cursive;
+                 font-family: 'Varela Round', sans-serif; */
+
+:root {
+    --primary-color: #FED049;
+    --primary-color-dark: #ffbf00;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+/* General styling and utility classes */
+
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Varela Round', sans-serif;
+}
+
+h1 {
+    font-weight: 800;
+    margin: 1.5em 0;
+}
+
+p {
+    line-height: 2;
+    font-size: 1.2rem;
+}
+
+.logo-font {
+    font-family: 'Pacifico', cursive;
+}
+
+
+/* General button styling */
+
+button {
+    line-height: normal;
+}
+
+button:hover {
+    font-weight: 600;
+}
+
+.btn-white-bg {
+    border: 2px solid var(--primary-color);
+    margin-right: 2em;
+}
+
+.btn-colour-bg {
+    border: 2px solid var(--primary-color);
+}
+
+.btn-colour-bg,
+.btn-white-bg:hover {
+    background-color: var(--primary-color);
+}
+
+.btn-colour-bg:hover {
+    background-color: #fff;
+}
+
+.btn:hover {
+    font-weight: 600;
+}
+
+/* User authentication pages (sign up, login, logout) */
+
+.auth-container {
+    max-width: 600px;
+}
+
+.auth-btn {
+    color: #000;
+    background-color: var(--primary-color-dark);
+    padding: .4em;
+    margin: .5em 0;
+    border: none;
+    border-radius: 4px;
+}
+
+
+/* Header and Navigation styling */
+
+.header-banner {
+    margin: 1.8em;
+}
+
+.banner-info>* {
+    margin: 0 .5em;
+}
+
+.logo {
+    font-family: 'Pacifico', cursive;
+    font-size: 2.25rem;
+    color: #000;
+}
+
+.logo:hover {
+    color: #000;
+}
+
+.navbar-nav,
+.dropdown-item {
+    background-color: var(--primary-color);
+}
+
+.navbar {
+    padding: 0;
+    align-content: center;
+}
+
+.nav-item,
+.dropdown-item {
+    padding: .3em .8em;
+    border: 1px var(--primary-color-dark) solid;
+    flex: 1;
+    text-align: center;
+}
+
+.nav-item:hover {
+    background-color: var(--primary-color-dark);
+}
+
+.nav-link {
+    color: #000;
+    font-size: 1.3rem;
+}
+
+.nav-link:hover {
+    color: #000;
+    font-weight: 600;
+}
+
+.dropdown-menu {
+    padding: 0;
+    max-width: 260px;
+    margin: 0 auto;
+}
+
+.dropdown-item:hover {
+    color: #000;
+    font-weight: 600;
+    background-color: var(--primary-color-dark);
+}
+
+.navbar-toggler {
+    font-size: 2rem;
+    /* margin: 1em; */
+    margin: 0;
+    position: absolute;
+    right: 0px;
+    z-index: 99;
+}
+
+.toggler-icon iconify-icon {
+    margin-top: 5px;
+}
+
+/* Home page styling */
+
+.hero-img {
+    /* 
+    break image out of parent container
+    source code: https://gomakethings.com/how-to-break-an-image-out-of-its-parent-container-with-css/#:~:text=.full%2Dwidth%20%7B%0A%09left%3A%2050%25%3B%0A%09margin%2Dleft%3A%20%2D50vw%3B%0A%09margin%2Dright%3A%20%2D50vw%3B%0A%09max%2Dwidth%3A%20100vw%3B%0A%09position%3A%20relative%3B%0A%09right%3A%2050%25%3B%0A%09width%3A%20100vw%3B%0A%7D
+    */
+    left: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    max-width: 100vw;
+    position: relative;
+    right: 50%;
+    width: 100vw;
+}
+
+.auth-btn:hover {
+    color: #000;
+    background-color: var(--primary-color);
+}
+
+.auth-btn:active {
+    transform: scale(1.05);
+    transition: ease-in-out;
+}
+
+
+/* Categories/Products page styling */
+
+.card-container {
+    max-width: 1100px;
+    margin: 50px auto;
+}
+
+.category-card,
+.product-card,
+.forum-entry-card {
+    width: fit-content;
+    border: solid 2px var(--primary-color-dark);
+    border-radius: 4px;
+    margin: 0 1.5em 1.5em 0;
+}
+
+.category-link,
+.product-link {
+    min-height: 100%;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.category-img,
+.product-img {
+    padding: 1em 0;
+    display: block;
+    width: 100%;
+    max-width: 250px;
+    margin: 0 auto;
+}
+
+.category-link-title,
+.product-link-title {
+    color: #000;
+    text-align: center;
+    font-weight: 600;
+    margin-top: auto;
+}
+
+/* Product detail page styling */
+
+.detail-container {
+    max-width: 1100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 50px 0;
+}
+
+.detail-img {
+    max-width: 280px;
+    display: block;
+    margin: 0 auto;
+}
+
+.detail-list {
+    font-size: 1.3rem;
+    line-height: 2;
+}
+
+/* Shopping basket styling */
+
+.basket-img {
+    width: 15%;
+    margin-right: 2rem;
+}
+
+.decrement-qty,
+.increment-qty {
+    font-size: 1.4em;
+    padding: 0 .5em;
+    margin: 0;
+}
+
+.qty_input {
+    max-width: 25%;
+}
+
+.update-link,
+.remove-item {
+    cursor: pointer;
+}
+
+/* Forum styling */
+
+.forum-entry-card {
+    max-width: 800px;
+    width: 80vw;
+    padding: 1em;
+}
+
+.forum-entry-card:hover {
+    border-color: var(--primary-color);
+    transform: scale(1.02);
+    transition: ease-in-out;
+    box-shadow: 0px 7px 3px -3px rgba(0, 0, 0, 0.3);
+}
+
+.forum-entry-link {
+    color: #000;
+    text-decoration: none;
+}
+
+.forum-entry-link:hover {
+    color: #000;
+
+}
+
+.type-label {
+    font-size: .8rem;
+    padding: .2em;
+    margin-bottom: 1.2em;
+}
+
+.entry-date {
+    font-size: 0.6rem;
+    margin-bottom: 0;
+}
+
+.entry-content p {
+    font-size: 1rem;
+}
+
+.entry-image {
+    width: 100%;
+}
+
+#id_excerpt {
+    height: 6rem;
+}
+
+.response-form label {
+    display: none;
+}
+
+/* Footer styling */
+
+footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: auto;
+    background-color: var(--primary-color);
+}
+
+.social-media-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.social-icon {
+    font-size: 2.5rem;
+}
+
+.privacy-link {
+    text-transform: uppercase;
+    color: #000;
+    flex-shrink: 0;
+    padding-right: 3em;
+}
+
+.newsletter-toggle-container {
+    display: none;
+}
+
+.newsletter-toggle {
+    border: none;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+/* Bootstrap Toast styling */
+
+.message-container {
+    position: fixed;
+    top: 72px;
+    right: 15px;
+    z-index: 9999;
+}
+
+/* Mailchimp newsletter styling */
+
+#mc_embed_signup {
+    background: transparent;
+    clear: left;
+    font: .6rem Helvetica, Arial, sans-serif;
+    max-width: 500px;
+}
+
+#mc_embed_signup h2 {
+    font-size: .8rem;
+    margin: .2em;
+}
+
+#mc_embed_signup form {
+    margin: .5em .5em 0 0;
+}
+
+#mc_embed_signup .button {
+    border-radius: 4px;
+    background-color: #000;
+    color: #fff;
+    font-weight: 600;
+    font-size: .6rem;
+    line-height: 1;
+    padding: .2em .7em;
+}
+
+#mc_embed_signup .button:hover {
+    color: #000;
+    background-color: #fff;
+}
+
+.mailchimp-logo {
+    max-width: 60px;
+}
+
+
+/* Error page styling */
+
+.error-img {
+    max-width: 25%;
+}
+
+.error-btn {
+    width: fit-content;
+}
+
+
+/* ----- MEDIA QUERIES ----- */
+
+/* Up to MEDIUM SIZE screens */
+
+@media (max-width: 767px) {
+
+    /* Header styling */
+    header {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    /* Nav styling */
+    .navbar-collapse {
+        position: absolute;
+        width: 80vw;
+        top: 80px;
+        right: 0;
+        z-index: 99;
+    }
+
+    /* Product detail page styling */
+    .detail-container {
+        flex-direction: column;
+    }
+
+    /* Footer styling */
+    footer {
+        flex-direction: column;
+        padding: .6rem 0;
+    }
+
+    .privacy-link {
+        padding: .5em 0;
+    }
+
+    /* Newsletter signup */
+    .newsletter-toggle-container {
+        display: block;
+    }
+
+    #mc_embed_signup {
+        display: none;
+    }
+}
+
+/* Up to SMALL SIZE screens */
+
+@media (max-width: 470px) {
+    :root {
+        font-size: 14px;
+    }
+}

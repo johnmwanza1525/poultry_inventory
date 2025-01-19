@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <h1>Forum</h1>
+    <div class="mt-5 border-bottom d-flex justify-content-between">
+        <h2>{{ entry.title }}</h2>
+        <a class="type-label btn btn-colour-bg" href="{% url 'forum' %}?entry_type={{ entry.entry_type }}">{{ entry.entry_type.get_friendly_name }}</a>
+    </div>
+    <div class="row entry-content mt-5">
+        <div class="col-12 col-md-4">
+            {% if entry.image %}
+                <img class="entry-image" src="{{ entry.image.url }}" alt="{{ entry.get_img_alt_value }}">
+            {% else %}
+                <img class="entry-image" src="{{ MEDIA_URL }}noimage.png" alt="cartoon chicken">
+            {% endif %}
+        </div>
+        <div class="col-12 col-md-8">
+            {{ entry.content | safe }}
+        </div>
+    </div> 
+
+    <!-- admin user forum entry edit options -->
+    {% if request.user.is_superuser %}
+        <small>
+            <a href="{% url 'edit_entry' entry.slug %}">Edit</a> | 
+            <a class="text-danger" href="" id="delete-confirm-link">Delete</a>
+        </small>
+        <div id="delete-confirmation" class="d-none">
+            <p class="mt-3">Are you sure you want to delete {{ entry.title }}?</p>
+            <a class="btn btn-success me-2" href="{% url 'delete_entry' entry.slug %}">Yes, I'm sure!</a>
+            <button class="btn btn-danger" id="cancel-delete-link">No, I'm not!</button>
+        </div>
+    {% endif %}
+    <hr>
+ 
+    <!-- Response form -->
+    <h2 class="fs-4 text-decoration-underline mt-5">Leave a response</h2>
+    {% if request.user.is_authenticated %}
+        <p>Was this artice helpful? Or did we miss something important? Let us know in the comments below.</p>
+        <form method="POST" action="#" class="form mb-2 response-form" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ response_form | crispy }}
+            <div class="mt-5">
+                <a class="btn btn-white-bg" href="{% url 'forum' %}">
+                    <iconify-icon inline icon="ion:chevron-back-circle" width="16"></iconify-icon>
+                    Back to Forum
+                </a>
+                <button class="btn btn-colour-bg" type="submit">
+                    <iconify-icon inline icon="material-symbols:add-circle-rounded" width="16"></iconify-icon>
+                    Submit comment
+                </button>
+            </div>
+        </form>
+    {% else %}
+        <p>
+            To comment on this article, you will need to <a href="{% url 'account_signup' %}">create an account</a> or 
+            <a href="{% url 'account_login' %}">login</a> to your existing one.
+        </p>
+    {% endif %}
+
+    <!-- Submitted and approved comments -->
+    <h2 class="fs-4 text-decoration-underline my-5">Other people responded to this post</h2>
+    {% if entry.approved_responses.count == 0 %}
+        <p>Nobody responded to this post yet.</p>
+    {% else %}
+        {% for response in responses %}
+            {% if response.approved %}
+                <div class="forum-response border-start border-secondary ps-5 mb-5">
+                    <p class="p-0 m-0"><strong>{{ response }}</strong></p>
+                    <small>{{ response.create_date }}</small>
+                    <p class="mt-3">{{ response.body }}</p>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}    
+
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+
+<script>
+// handles user confirmation for deleting forum entries
+
+    let deleteConfirmLink = document.getElementById("delete-confirm-link");
+    let cancelDeleteLink = document.getElementById("cancel-delete-link");
+    let deleteConfirmationEl = document.getElementById("delete-confirmation");
+
+    deleteConfirmLink.addEventListener("click", handleDelete);
+    cancelDeleteLink.addEventListener("click", cancelDeleteAction);
+
+    function handleDelete(event) {
+        event.preventDefault();
+        deleteConfirmationEl.classList.remove("d-none");
+        deleteConfirmationEl.classList.add("d-block");
+    }
+
+    function cancelDeleteAction(event) {
+        event.preventDefault();
+        deleteConfirmationEl.classList.add("d-none");
+        deleteConfirmationEl.classList.remove("d-block");  
+    }
+</script>
+
+{% endblock %}

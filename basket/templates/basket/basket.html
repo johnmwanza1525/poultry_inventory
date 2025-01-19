@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load static %}
+{% load basket_tools %}
+
+{% block content %}
+    <h1>Shopping Basket</h1>
+        {% if basket_items %}
+            <div class="table-responsive mt-5">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr class="border-bottom border-secondary">
+                            <th scope="col">Product</th>
+                            <th class="text-end" scope="col">Price</th>
+                            <th class="text-end" scope="col">Quantity</th>
+                            <th class="text-end" scope="col">Subtotal</th>
+                        </tr>
+                    </thead>
+                    {% for item in basket_items %}
+                        <tr>
+                            <td class="w-25">
+                                {% if item.product.image %}
+                                    <img class="basket-img" src="{{ item.product.image.url }}" alt="{{ item.product.breed }}">
+                                {% else %}
+                                    <img class="basket-img" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.product.breed }}">
+                                {% endif %}
+                                {{ item.product.breed }}
+                            </td>
+                            <td class="text-end">€ {{ item.product.price }}</td>
+                            <td class="qty-form text-end">{% include "basket/quantity-form.html" %}</td>
+                            <td class="text-end">€ {{ item.product.price | calc_subtotal:item.quantity }}</td>
+                        </tr>
+                    {% endfor %}
+                    <tr class="border-top border-secondary">
+                        <td colspan="4" class="text-end">
+                            <strong>Basket Total: € {{ total | floatformat:2 }}</strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="text-end" id="basketDeliveryCost">
+                            Delivery Cost: € {{ delivery | floatformat:2 }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"></td>
+                        <td colspan="2" class="text-end border-top border-secondary"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="text-end" id="basketGrandTotal">
+                            <strong>Grand Total: € {{ grand_total | floatformat:2 }}</strong>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="float-end my-5">
+                <a href="{% url 'categories' %}" class="btn btn-white-bg">
+                    <span class="icon">
+                        <iconify-icon inline icon="ion:chevron-back-circle" width="16"></iconify-icon>
+                    </span>
+                    Keep Shopping
+                </a>
+                <a href="{% url 'checkout' %}" class="btn btn-colour-bg mx-0">
+                    <span class="icon">
+                        <iconify-icon inline icon="mdi:cash-lock" width="16"></iconify-icon>
+                    </span>
+                    Go to Checkout
+                </a>
+            </div>
+        {% else %}
+            <p class="mt-5">Basket is empty.</p>
+            <a href="{% url 'categories' %}" class="btn btn-colour-bg align-self-start">
+                <span class="icon">
+                    <iconify-icon inline icon="ion:chevron-back-circle" width="16"></iconify-icon>
+                </span>
+                Back to products
+            </a>
+        {% endif %}
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+
+{% include 'basket/includes/quantity_input_script.html' %}
+<script>
+    /* 
+    Source code originally from: https://github.com/Code-Institute-Solutions/boutique_ado_v1/blob/7e5faf3f2fc5fe20e382f91ea0b86a28b4917359/bag/templates/bag/bag.html#:~:text=%3Cscript%20type,%3C/script%3E
+    */
+    // Update quantity on click
+    $('.update-link').click(function(e) {
+        var form = $(this).prev('.update-form');
+        form.submit();
+    });
+
+    // Remove item and reload on click
+    $('.remove-item').click(function(e) {
+        var csrfToken = "{{ csrf_token }}";
+        var itemId = $(this).attr('id').split('remove_')[1];
+        var url = `/basket/remove/${itemId}/`;
+        var data = {'csrfmiddlewaretoken': csrfToken};
+
+        $.post(url, data)
+         .done(function() {
+             location.reload();
+         });
+    });
+
+</script>
+
+{% endblock %}

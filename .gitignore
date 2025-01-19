@@ -1,0 +1,12 @@
+core.Microsoft*
+core.mongo*
+core.python*
+*.sqlite3
+env.py
+__pycache__/
+*.py[cod]
+node_modules/
+.github/
+cloudinary_python.txt
+chirpy_chooks/.env
+chirpy_chooks/local_settings.py
