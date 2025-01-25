@@ -69,7 +69,7 @@ class Response(models.Model):
     author = models.CharField(max_length=60)
     body = models.TextField()
     create_date = models.DateField(auto_now_add=True)
-    approved = models.BooleanField(default=False)
+    approved = models.BooleanField(default=True)
 
     class Meta:
         ordering = ['-create_date']

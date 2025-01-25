@@ -54,7 +54,7 @@ def entry_detail(request, slug):
             response = response_form.save(commit=False)
             response.entry = entry
             response.save()
-            messages.info(request, 'Your comment is awaiting approval.')
+            messages.info(request, 'Thank you for commenting.')
             return redirect(reverse('entry_detail', args=[entry.slug]))
         else:
             messages.error(
