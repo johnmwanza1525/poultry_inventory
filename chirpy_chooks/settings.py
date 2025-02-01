@@ -23,14 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-#Host Settings
-
-ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-    '6867-154-159-237-19.ngrok-free.app',
-
-]
+DEBUG = True
 
 try:
     from . local_settings import *
@@ -155,7 +148,22 @@ WSGI_APPLICATION = 'chirpy_chooks.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+if 'DATABASE_URL' in os.environ:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'farm_sales',
+            'USER': 'farm_admin',
+            'PASSWORD': 'Millionare20$',
+            'HOST':'localhost',
+            'PORT':'5432'
 
+        }
+    }
 
 
 # Password validation
