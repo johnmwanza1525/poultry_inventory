@@ -5,6 +5,8 @@ from django.dispatch import receiver
 #from products.models import Product as pd
 #from datetime import datetime
 from django.utils import timezone
+from django.contrib.postgres.fields import ArrayField  # For ArrayField
+
 
 NAIROBI = 'Nairobi'
 MOMBASA = 'Mombasa'
@@ -92,14 +94,19 @@ COUNTIES = [
 ]
 
 
-# Enhanced UserProfile Model
+
+
 class UserProfile(models.Model):
-    """
-    A user profile model for maintaining default
-    contact information, preferences, and order history.
-    """
+    USER_TYPE_CHOICES = [
+        ('BUYER', 'Buyer'),
+        ('SELLER', 'Seller'),
+        ('ADMIN', 'Admin'),
+    ]
+
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    profile_picture = models.ImageField(upload_to='profile_pictures', blank=True, null=True)  # Optional profile picture
+    user_type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES, default='BUYER')  # User type
+    profile_picture = models.ImageField(upload_to='profile_pictures', blank=True, null=True)
+    bio = models.TextField(blank=True, null=True)  # User bio
     default_phone_number = models.CharField(max_length=20, null=True, blank=True)
     default_street_address1 = models.CharField(max_length=80, null=True, blank=True)
     default_street_address2 = models.CharField(max_length=80, null=True, blank=True)
@@ -107,28 +114,28 @@ class UserProfile(models.Model):
     default_county = models.CharField(max_length=80, null=True, blank=True, choices=COUNTIES)
     default_postcode = models.CharField(max_length=20, null=True, blank=True)
 
-    # Additional personal and account details
-    email_verified = models.BooleanField(default=False)  # Email verification status
-    preferred_payment_methods = models.JSONField(blank=True, null=True)  # Preferred payment options (e.g., {"M-Pesa": True, "Visa": True})
-    date_joined = models.DateTimeField(default=timezone.now)  # When the customer registered
-    last_login = models.DateTimeField(auto_now=True)  # Automatically updated on login
+    # Account details
+    email_verified = models.BooleanField(default=False)
+    preferred_payment_methods = ArrayField(models.CharField(max_length=50), blank=True, null=True)  # Array of payment methods
+    date_joined = models.DateTimeField(default=timezone.now)
+    last_login = models.DateTimeField(auto_now=True)
 
-    # Customer preferences
-    marketing_opt_in = models.BooleanField(default=False)  # Whether they want to receive promotional emails
-    preferred_categories = models.JSONField(blank=True, null=True)  # Categories of interest for personalized suggestions
-    language_preference = models.CharField(max_length=20, default='English')  # Preferred language for the platform
+    # Preferences
+    marketing_opt_in = models.BooleanField(default=False)
+    preferred_categories = ArrayField(models.CharField(max_length=50), blank=True, null=True)  # Array of categories
+    language_preference = models.CharField(max_length=20, default='English')
 
     # Order and activity history
-    total_orders = models.IntegerField(default=0)  # Track total number of orders
-    total_spent = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)  # Total amount spent on the platform
-    wishlist = models.ManyToManyField('products.Product', blank=True)  # Products added to the wishlist
+    total_orders = models.IntegerField(default=0)
+    total_spent = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+    wishlist = models.ManyToManyField('products.Product', blank=True)
 
-    # Address book for multiple shipping addresses
-    addresses = models.JSONField(blank=True, null=True)  # Store multiple addresses in JSON format
+    # Address book
+    addresses = models.JSONField(blank=True, null=True)
 
     # Feedback and reviews
-    total_reviews = models.IntegerField(default=0)  # Total number of reviews provided by the user
-    average_rating_given = models.FloatField(default=0.0)  # Average rating given to sellers/products
+    total_reviews = models.IntegerField(default=0)
+    average_rating_given = models.FloatField(default=0.0)
 
     def __str__(self):
         return f"{self.user.username}'s Profile"
@@ -151,42 +158,42 @@ class UserProfile(models.Model):
         self.average_rating_given = total / self.total_reviews
         self.save()
 
-# Choices for business type
-BIZZ_TYPE_CHOICES = [
-    ('WHOLE_SELLER', 'Whole Seller'),
-    ('SUPPLIER', 'Supplier'),
-    ('RETAILER', 'Retailer'),
-    ('FARMER', 'Farmer'),
-]
 
-# Enhanced Seller Model
-class Marchant(models.Model):
-    """Enhanced Database model for a seller (including farmers, suppliers, etc.)"""
+
+class Seller(models.Model):
+    BIZZ_TYPE_CHOICES = [
+        ('WHOLE_SELLER', 'Whole Seller'),
+        ('SUPPLIER', 'Supplier'),
+        ('RETAILER', 'Retailer'),
+        ('FARMER', 'Farmer'),
+    ]
+
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='seller')
+    user_type = models.CharField(max_length=10, default='SELLER')  # Align with UserProfile
     image = models.ImageField(upload_to='seller_images', blank=True)
     business_category = models.CharField(max_length=20, choices=BIZZ_TYPE_CHOICES, default='FARMER')
     phone_no = models.CharField(max_length=15, unique=True, null=True, blank=True)
-    location = models.CharField(max_length=100, blank=True)  # Expanded for detailed location
-    email = models.EmailField(unique=True,null=True)  # Added unique constraint
+    location = models.CharField(max_length=100, blank=True)
+    email = models.EmailField(unique=True, null=True)
     date_joined = models.DateTimeField(default=timezone.now)
     is_premium = models.BooleanField(default=False, null=True)
-    premium_subscription_expiry = models.DateField(null=True, blank=True)  # To track premium validity
-    business_description = models.TextField(blank=True)  # Brief description of their business
-    verified = models.BooleanField(default=False)  # Whether the seller's account is verified
-    average_rating = models.FloatField(default=0.0)  # Track average customer ratings
-    total_reviews = models.IntegerField(default=0)  # Count of reviews received
-    website = models.URLField(max_length=255, blank=True, null=True)  # Optional business website
-    social_media_links = models.JSONField(blank=True, null=True)  # To store social media profiles (e.g., JSON: {"Facebook": "url", "Instagram": "url"})
-    preferred_payment_methods = models.JSONField(blank=True, null=True)  # Preferred payment options (e.g., {"M-Pesa": True, "Visa": True})
-    bank_account_details = models.JSONField(blank=True, null=True)  # For payouts (e.g., {"Bank Name": "", "Account No": ""})
+    premium_subscription_expiry = models.DateField(null=True, blank=True)
+    business_description = models.TextField(blank=True)
+    verified = models.BooleanField(default=False)
+    average_rating = models.FloatField(default=0.0)
+    total_reviews = models.IntegerField(default=0)
+    website = models.URLField(max_length=255, blank=True, null=True)
+    social_media_links = ArrayField(models.CharField(max_length=255), blank=True, null=True)  # Array of social media links
+    preferred_payment_methods = ArrayField(models.CharField(max_length=50), blank=True, null=True)  # Array of payment methods
+    bank_account_details = models.JSONField(blank=True, null=True)
 
     # Address details
-    county = models.CharField(max_length=100, blank=True)  # Kenyan counties
+    county = models.CharField(max_length=100, blank=True, choices=COUNTIES)  # Use COUNTIES choices
     town = models.CharField(max_length=100, blank=True)
 
-    # Additional fields for analytics or business growth
-    total_products_sold = models.IntegerField(default=0)  # Track total products sold by the seller
-    total_earnings = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)  # Total earnings from the platform
+    # Analytics
+    total_products_sold = models.IntegerField(default=0)
+    total_earnings = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
 
     def __str__(self):
         return f"{self.user.username} ({self.get_business_category_display()})"

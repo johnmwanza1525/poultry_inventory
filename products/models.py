@@ -22,7 +22,7 @@ class Product(models.Model):
     Parent class for all bird products
     of different types
     """
-    seller = models.ForeignKey('profiles.Marchant', on_delete=models.CASCADE, null=True)
+    seller = models.ForeignKey('profiles.Seller', on_delete=models.CASCADE, null=True)
     category = models.ForeignKey(
         'Category', null=True, blank=True, on_delete=models.CASCADE)
     breed = models.CharField(max_length=80)
